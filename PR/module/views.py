@@ -12,6 +12,7 @@ from rest_framework import status
 def ApiOverview(request):
     api_urls = {
         'all_projects': '/',
+        'view Project': '/view/pk',
         'Add': '/create',
         'Update': '/update/pk',
         'Delete': '/item/pk/delete'
@@ -46,6 +47,16 @@ def view_projects(request):
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
+@api_view(['GET'])
+def view_ProjectByID(request, pk):
+    # checking for the parameters from the URL
+    project = Project.objects.get(pk=pk)
+
+    if project:
+        serializer = ProjectSerializer(project)
+        return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 def update_projects(request, pk):
