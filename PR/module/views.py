@@ -42,10 +42,11 @@ def view_projects(request):
     projects = Project.objects.all()
 
     if projects:
-        serializer = ProjectSerializer(projects,many=True)
+        serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['GET'])
 def view_ProjectByID(request, pk):
@@ -57,6 +58,7 @@ def view_ProjectByID(request, pk):
         return Response(serializer.data)
     else:
         return Response(status=status.HTTP_404_NOT_FOUND)
+
 
 @api_view(['POST'])
 def update_projects(request, pk):
